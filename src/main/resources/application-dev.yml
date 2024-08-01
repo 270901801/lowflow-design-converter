@@ -6,3 +6,41 @@ server:
 spring:
   application:
     name: lowflow
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PWD:123456}
+    url: jdbc:mysql://${MYSQL_HOST:127.0.0.1}:${MYSQL_PORT:3306}/${MYSQL_DB:activiti}?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true&allowPublicKeyRetrieval=true&queryTimeout=2400&nullCatalogMeansCurrent=true
+    druid:
+      initialSize: 30
+      minIdle: 30
+      maxActive: 50
+      WebStatFilter:
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+      StatViewServlet:
+        loginUsername: druid
+        loginPassword: druid
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  activiti:
+    # 自动检测是否存在流程表，没有则创建，默认false
+    check-process-definitions: true
+    # 是否检测流程定义目录classpath:processes/ 中的流程文件，默认true
+    database-schema-update: true
+  mybatis-plus:
+    mapper-locations: classpath:/mapper/**/*.xml
+  main:
+    allow-bean-definition-overriding: true
+#  autoconfigure:
+#    exclude:
+#      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+#      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+#      - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+#      - org.activiti.spring.boot.DataSourceProcessEngineAutoConfiguration
+#      - org.springframework.boot.autoconfigure.web.client.RestTemplateAutoConfiguration
+#      - org.springframework.boot.autoconfigure.web.servlet.HttpEncodingAutoConfiguration
+#      - org.springframework.boot.autoconfigure.web.servlet.MultipartAutoConfiguration

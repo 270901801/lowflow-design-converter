@@ -1,7 +1,9 @@
 package com.lowflow;
 
+//import org.activiti.spring.boot.SecurityAutoConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
 /**
  * @Title: LowflowApplication
@@ -11,7 +13,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @gitee：https://gitee.com/cai_xiao_feng/lowflow-design
  * @description：启动类
  */
-@SpringBootApplication(scanBasePackages = "com.lowflow")
+@SpringBootApplication(scanBasePackages = "com.lowflow.*",
+        exclude = {SecurityAutoConfiguration.class,org.activiti.spring.boot.SecurityAutoConfiguration.class})
 public class LowflowApplication {
     public static void main(String[] args) {
         SpringApplication.run(LowflowApplication.class, args);
